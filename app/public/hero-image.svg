@@ -1,0 +1,39 @@
+<svg width="600" height="400" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+  <rect width="600" height="400" fill="#f0f9ff" />
+  
+  <!-- Background elements -->
+  <circle cx="150" cy="200" r="120" fill="#dbeafe" />
+  <rect x="350" y="80" width="200" height="240" rx="20" fill="#dbeafe" />
+  
+  <!-- Person 1 (with speech disability) -->
+  <circle cx="150" cy="180" r="60" fill="#3b5cdb" />
+  <circle cx="150" cy="130" r="30" fill="#eff6ff" />
+  <rect x="120" y="180" width="60" height="80" fill="#3b5cdb" />
+  
+  <!-- Speech bubble from person 1 (unclear speech) -->
+  <path d="M220 140 L 260 120 L 330 140 L 260 160 Z" fill="#eff6ff" stroke="#3b5cdb" stroke-width="2" />
+  <text x="260" y="145" font-family="Arial" font-size="14" text-anchor="middle" fill="#64748b">???? ????? ????</text>
+  
+  <!-- Parley App in the middle -->
+  <rect x="240" y="180" width="120" height="160" rx="10" fill="#ffffff" stroke="#3b5cdb" stroke-width="3" />
+  <text x="300" y="210" font-family="Arial" font-weight="bold" font-size="18" text-anchor="middle" fill="#3b5cdb">Parley</text>
+  <rect x="255" y="220" width="90" height="40" rx="5" fill="#eef2ff" />
+  <text x="300" y="245" font-family="Arial" font-size="12" text-anchor="middle" fill="#3b5cdb">AI Processing</text>
+  <path d="M270 285 L 280 275 L 320 275 L 330 285 L 330 315 L 270 315 Z" fill="#eef2ff" />
+  <text x="300" y="300" font-family="Arial" font-size="12" text-anchor="middle" fill="#3b5cdb">I need help</text>
+  
+  <!-- Person 2 (healthcare provider) -->
+  <circle cx="450" cy="180" r="60" fill="#6366f1" />
+  <circle cx="450" cy="130" r="30" fill="#eff6ff" />
+  <rect x="420" y="180" width="60" height="80" fill="#6366f1" />
+  
+  <!-- Speech bubble to person 2 (clear speech) -->
+  <path d="M380 140 L 340 120 L 270 140 L 340 160 Z" fill="#eff6ff" stroke="#3b5cdb" stroke-width="2" />
+  <text x="340" y="145" font-family="Arial" font-size="14" text-anchor="middle" fill="#3b5cdb">I need help</text>
+  
+  <!-- Decorative elements -->
+  <circle cx="50" cy="50" r="20" fill="#bfdbfe" />
+  <circle cx="550" cy="50" r="20" fill="#bfdbfe" />
+  <circle cx="50" cy="350" r="20" fill="#bfdbfe" />
+  <circle cx="550" cy="350" r="20" fill="#bfdbfe" />
+</svg> 
