@@ -1,91 +1,75 @@
-# Parley: AI-Powered Communication Assistant
+# Parley - AI-Powered Communication Assistant
 
-Parley is an innovative AI-powered communication assistant designed to help individuals with speech disabilities or language barriers. It provides a comprehensive suite of tools for effective communication through an intuitive and visually engaging interface.
+Parley is an AI-powered communication assistant designed to help individuals with speech disabilities or language barriers communicate more effectively. It integrates Claude AI for intelligent conversations and ElevenLabs for high-quality text-to-speech.
 
-![Parley Screenshot](https://via.placeholder.com/800x400?text=Parley+Screenshot)
+## Key Features
 
-## Features
+- **AI-Powered Chat**: Natural conversations powered by Claude AI
+- **Text-to-Speech**: High-quality voice synthesis through ElevenLabs API
+- **Speech-to-Text**: Voice input for easy communication
+- **Medical Terminology Recognition**: Identifies and explains medical terms
+- **Real-time Translation**: Translates conversations to different languages
+- **Accessibility Options**: Font size adjustments, high contrast mode, and more
 
-- **Speech Enhancement**: Crystal-clear speech transformation for better communication.
-- **Medical Terminology Recognition**: Specialized vocabulary for healthcare conversations.
-- **Visual Communication Board**: Symbol-based expression for those who prefer visual communication.
-- **Real-time Translation**: Breaking language barriers through instant translations.
-- **Custom Phrasebook**: Store frequently used phrases for quick access.
-- **Impact Dashboard**: Track communication progress and improvements over time.
-
-## Demo
-
-Visit the demo at [parley-demo.vercel.app](https://parley-demo.vercel.app) to experience the features firsthand.
-
-## Tech Stack
-
-- **Next.js 13** with App Router for the frontend framework
-- **TypeScript** for type-safe code
-- **Tailwind CSS** for styling and responsive design
-- **Framer Motion** for smooth animations and transitions
-- **React Icons** for high-quality icons
-- **Claude API** for natural language processing (coming soon)
-- **ElevenLabs API** for high-quality text-to-speech (coming soon)
-
-## Getting Started
+## Setup Guide
 
 ### Prerequisites
 
-- Node.js 16.x or higher
-- npm or yarn package manager
+- Node.js 18+ installed
+- API keys for Claude and ElevenLabs (optional for TTS)
 
 ### Installation
 
-1. Clone the repository:
+1. Clone the repository and navigate to the app directory:
    ```bash
-   git clone https://github.com/yourusername/parley.git
-   cd parley
+   cd app
    ```
 
 2. Install dependencies:
    ```bash
    npm install
-   # or
-   yarn install
    ```
 
 3. Run the development server:
    ```bash
    npm run dev
-   # or
-   yarn dev
    ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-## Project Structure
+### API Keys Setup
 
-```
-app/
-├── app/
-│   ├── components/       # Reusable UI components
-│   │   ├── Parley.tsx    # Main chat interface
-│   │   └── ...
-│   ├── communicate/      # Communicate page
-│   ├── globals.css       # Global styles
-│   ├── layout.tsx        # Root layout
-│   └── page.tsx          # Home page
-├── public/               # Static assets
-└── ...
-```
+#### Claude API Key
 
-## Future Enhancements
+1. Go to [Anthropic Console](https://console.anthropic.com/account/keys)
+2. Create an API key
+3. Enter the API key in the Parley app when prompted or click the settings icon
 
-- Integration with Claude API for advanced natural language processing
-- ElevenLabs API integration for realistic text-to-speech
-- Voice analysis and feedback system
-- Expanded visual communication board with customizable symbols
-- Real-time group conversations with translation capabilities
+#### ElevenLabs API Key (Optional for Text-to-Speech)
 
-## Contributing
+1. Go to [ElevenLabs Dashboard](https://elevenlabs.io/app/api-key)
+2. Generate an API key
+3. Enter the API key in the Parley app's settings
 
-We welcome contributions to Parley! Please feel free to submit a pull request or open an issue on our GitHub repository.
+## How the Proxy Solution Works
+
+Parley includes a built-in proxy solution to bypass CORS issues when calling the Claude API from a browser. This works as follows:
+
+1. The frontend makes requests to local Next.js API routes in the `/api/proxy` directory
+2. These proxy routes forward the requests to the Claude API with the appropriate headers
+3. The proxy routes handle the responses and return them to the frontend
+
+This approach eliminates CORS errors and provides a more reliable connection to the Claude API.
+
+## Troubleshooting API Connection Issues
+
+If you're experiencing issues with the API connection:
+
+1. Make sure your API key is entered correctly in the settings
+2. Verify that the development server is running properly
+3. Try refreshing the page to reset the connection
+4. Check the browser console for more detailed error messages
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+MIT

@@ -1,0 +1,63 @@
+# Parley: Development Summary
+
+## Project Overview
+
+Parley is an AI-powered communication assistant designed to break barriers for individuals with speech disabilities or language barriers. The application features a modern, accessible interface that enables natural communication through a combination of text and speech.
+
+## Key Implementations
+
+### Core Components
+
+1. **Parley Chat Interface**: A full-featured chat component that supports both text and voice input, with capabilities for displaying rich content including medical term definitions and translations.
+
+2. **API Integration Systems**:
+   - Claude AI API for natural language processing and contextual responses
+   - ElevenLabs API for high-quality text-to-speech conversion
+   - Web Speech API for speech recognition functionality
+
+3. **Accessibility Features**:
+   - Font size controls
+   - High contrast mode
+   - Text-to-speech toggle
+   - Keyboard and voice input options
+
+### Technical Features
+
+1. **Modern UI Design**:
+   - Gradient backgrounds and glass-morphism effects
+   - Responsive animations using Framer Motion
+   - Mobile and desktop responsive layout
+   - Custom animations for typing indicators and transitions
+
+2. **Speech Processing**:
+   - Real-time speech recognition
+   - Text-to-speech playback
+   - Voice input that automatically submits when speech is detected
+
+3. **AI Capabilities**:
+   - Contextual conversation handling
+   - Medical terminology extraction and explanation
+   - Real-time translation to multiple languages
+   - Personalized responses based on conversation history
+
+## Technology Stack
+
+- **Frontend**: Next.js 13 with App Router, React, TypeScript
+- **Styling**: Tailwind CSS with custom extensions
+- **Animation**: Framer Motion for smooth transitions
+- **Icons**: React Icons library for consistent visual elements
+- **AI**: Claude API from Anthropic for language processing
+- **Speech**: ElevenLabs API for realistic text-to-speech
+- **State Management**: React hooks for local state
+
+## Future Directions
+
+- Expanded communication board with more specialized medical symbols
+- Analytics dashboard for tracking communication patterns
+- Mobile application with offline capabilities
+- Integration with healthcare systems for medical record context
+- Multi-participant conversations with real-time translation
+
+## Conclusion
+
+The Parley project demonstrates how modern web technologies can be combined with AI services to create an accessible, powerful communication tool. The application showcases the potential of AI to assist individuals with communication challenges through an intuitive interface and responsive design. 
