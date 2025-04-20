@@ -1,18 +1,15 @@
 # Parley - AI-Powered Speech Assistant
 
-Parley is an assistive communication tool designed to help people with speech disabilities and language barriers communicate effectively, particularly in healthcare and other high-stakes environments. By leveraging AI technology, Parley transcribes speech, automatically detects language, translates when needed, clarifies unclear portions, and provides natural-sounding audio responses - all from a single button press.
+Parley is an assistive communication tool designed to help people with speech difficulties communicate more effectively. By leveraging AI technology, Parley transcribes speech, clarifies unclear portions, and provides natural-sounding audio responses.
 
 ## Features
 
-- **Seamless Single-Button Workflow**: Press and hold to speak, then automatically receive clear audio output
-- **Automatic Speech Recognition**: Captures and transcribes spoken words using advanced STT technology
-- **Language Detection & Translation**: Automatically identifies non-English speech and translates to English
-- **AI Clarification**: Uses Claude AI to improve and clarify transcribed speech for better understanding
-- **Natural Text-to-Speech**: Converts clarified text to natural-sounding speech using ElevenLabs
-- **Medical Terminology Identification**: Identifies and explains medical terms for healthcare settings
-- **Glowing Tech Aesthetic**: Beautiful dark mode interface with rounded corners and smooth transitions
-- **Impact Dashboard**: Track usage statistics and communication effectiveness metrics
-- **Fully Accessible Design**: Intuitive interface optimized for users with various abilities
+- Speech Recognition: Captures and transcribes spoken words
+- AI Clarification: Uses Claude AI to improve and clarify transcribed speech
+- Text-to-Speech: Converts clarified text to natural-sounding speech using ElevenLabs
+- Medical Terminology Identification: Identifies and explains medical terms
+- Translation Support: Translates conversations into different languages
+- Accessible Interface: Clean, responsive design that works on multiple devices
 
 ## Getting Started
 
@@ -21,7 +18,7 @@ Parley is an assistive communication tool designed to help people with speech di
 - Node.js (v16 or later)
 - npm or yarn
 - API keys for:
-  - Claude AI (for clarification, translation, and language detection)
+  - Claude AI
   - ElevenLabs (for text-to-speech)
   - OpenAI (optional, for alternative speech recognition)
 
@@ -54,39 +51,26 @@ Parley is an assistive communication tool designed to help people with speech di
 
 ## Usage
 
-1. Tap the large, glowing microphone button to begin recording speech
-2. Speak clearly - the app will show a visual indicator that it's listening
-3. Release the button when done speaking
-4. Parley will automatically:
+1. Tap the microphone button to begin recording speech
+2. Speak clearly - the app will transcribe what you say
+3. After you finish speaking (or tap the button again), Parley will:
    - Display the original transcription
-   - Detect language and translate to English if needed
    - Process the text with Claude AI to clarify it
    - Show the clarified text
-   - Read the clarified text aloud using ElevenLabs TTS
-
-The entire process happens seamlessly with clear visual feedback at each stage.
-
-## User Interface
-
-- **Dark Mode**: Modern dark theme with glowing accents and soft transitions
-- **Responsive Layout**: Works on desktop, tablet, and mobile devices
-- **Visual Feedback**: Clear indicators for listening, processing, and speaking states
-- **Navigation Bar**: Fixed top navbar with access to the main app and insights page
-- **Vertical Flow**: Intuitive layout with content arranged in a clear vertical flow
-- **Accessibility**: High-contrast options, keyboard controls, and screen reader support
+   - Provide a play button to hear the text spoken aloud
 
 ## Architecture
 
 Parley is built using:
 
-- **Next.js**: React framework for the frontend
-- **TypeScript**: For type safety and code reliability
-- **TailwindCSS**: For styling the modern, glowing UI
-- **Framer Motion**: For smooth animations and transitions
-- **Web Speech API**: For browser-based speech recognition
-- **Claude API**: For language detection, translation, clarification, and analysis
-- **ElevenLabs API**: For high-quality text-to-speech
-- **Whisper API**: For enhanced speech recognition
+- Next.js: React framework for the frontend
+- TypeScript: For type safety and code reliability
+- TailwindCSS: For styling
+- Framer Motion: For animations and transitions
+- Web Speech API: For browser-based speech recognition
+- Claude API: For text clarification and analysis
+- ElevenLabs API: For high-quality text-to-speech
+- Whisper API: For enhanced speech recognition
 
 ## Project Structure
 
@@ -94,38 +78,26 @@ Parley is built using:
 app/
 ├── api/             # API routes for proxying to external services
 ├── components/      # React components
-├── pages/           # Next.js pages including main app and insights
+├── pages/           # Next.js pages
 ├── public/          # Static assets
-└── styles/          # CSS styles for the glowing tech aesthetic
+└── styles/          # CSS styles
 ```
-
-## Impact Dashboard
-
-The insights page provides valuable metrics on:
-
-- Communication effectiveness
-- Language detection and translation accuracy
-- Most common medical terms identified
-- Usage patterns and frequency
-- Time saved in communication scenarios
-
-This data helps demonstrate the real-world impact of the application for users with speech disabilities or language barriers.
 
 ## Privacy and Data Handling
 
-Parley processes speech data through various AI services. No data is permanently stored on our servers. API calls are made directly from the client or through minimal server-side proxies to add authentication headers.
+Parley processes speech data through various API services. No data is permanently stored on our servers. API calls are made directly from the client or through minimal server-side proxies to add authentication headers.
 
 User settings (like API keys) are stored in the browser's localStorage and remain on the user's device.
 
 ## Roadmap
 
 - Support for more languages and dialects
-- Enhanced medical terminology database
+- Phrasebook feature for commonly used expressions
+- Mobile app versions
 - Offline mode for limited connectivity situations
 - Customizable voice options
 - Integration with messaging platforms
-- Expanded analytics dashboard for communication patterns
-- Voice customization for different scenarios
+- Analytics dashboard for communication patterns
 
 ## License
 
@@ -133,6 +105,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Acknowledgments
 
-- Claude AI by Anthropic for language detection, translation, and text clarification
-- ElevenLabs for high-quality text-to-speech technology
+- Claude AI by Anthropic for text processing capabilities
+- ElevenLabs for text-to-speech technology
 - OpenAI for Whisper speech recognition technology
