@@ -6,10 +6,11 @@ import { motion } from 'framer-motion';
 interface ApiSettingsProps {
   isOpen: boolean;
   onClose: () => void;
-  onSave: (claudeKey: string, elevenLabsKey: string, voiceId: string) => void;
+  onSave: (claudeKey: string, elevenLabsKey: string, openAiKey: string, voiceId: string | null) => void;
   initialClaudeKey?: string;
   initialElevenLabsKey?: string;
-  initialVoiceId?: string;
+  initialOpenAiKey?: string;
+  initialVoiceId?: string | null;
 }
 
 interface Voice {
@@ -23,11 +24,13 @@ export default function ApiSettings({
   onSave,
   initialClaudeKey = '',
   initialElevenLabsKey = '',
-  initialVoiceId = ''
+  initialOpenAiKey = '',
+  initialVoiceId = null
 }: ApiSettingsProps) {
   const [claudeKey, setClaudeKey] = useState(initialClaudeKey);
   const [elevenLabsKey, setElevenLabsKey] = useState(initialElevenLabsKey);
-  const [selectedVoiceId, setSelectedVoiceId] = useState(initialVoiceId);
+  const [openAiKey, setOpenAiKey] = useState(initialOpenAiKey);
+  const [selectedVoiceId, setSelectedVoiceId] = useState<string | null>(initialVoiceId);
   const [voices, setVoices] = useState<Voice[]>([]);
   const [loadingVoices, setLoadingVoices] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -49,12 +52,17 @@ export default function ApiSettings({
         if (storedElevenLabsKey) setElevenLabsKey(storedElevenLabsKey);
       }
       
+      if (!initialOpenAiKey) {
+        const storedOpenAiKey = localStorage.getItem('OPENAI_API_KEY');
+        if (storedOpenAiKey) setOpenAiKey(storedOpenAiKey);
+      }
+      
       if (!initialVoiceId) {
-        const storedVoiceId = localStorage.getItem('ELEVENLABS_VOICE_ID');
+        const storedVoiceId = localStorage.getItem('selectedVoiceId');
         if (storedVoiceId) setSelectedVoiceId(storedVoiceId);
       }
     }
-  }, [isOpen, initialClaudeKey, initialElevenLabsKey, initialVoiceId]);
+  }, [isOpen, initialClaudeKey, initialElevenLabsKey, initialOpenAiKey, initialVoiceId]);
 
   // Fetch voices when ElevenLabs key is provided
   useEffect(() => {
@@ -161,15 +169,22 @@ export default function ApiSettings({
       setError('Invalid Claude API key format. Keys should start with "sk-" or be in the new format with underscores');
       return;
     }
+    
+    // Validate OpenAI API key if provided
+    if (openAiKey && !openAiKey.startsWith('sk-')) {
+      setError('Invalid OpenAI API key format. Keys should start with "sk-"');
+      return;
+    }
 
     // Log the values being saved
     console.log('Saving API keys:', {
       claudeKey: claudeKey ? 'Has value' : 'Empty',
       elevenLabsKey: elevenLabsKey ? 'Has value' : 'Empty',
-      selectedVoiceId
+      openAiKey: openAiKey ? 'Has value' : 'Empty',
+      selectedVoiceId: selectedVoiceId ? 'Has value' : 'Empty'
     });
     
-    onSave(claudeKey, elevenLabsKey, selectedVoiceId);
+    onSave(claudeKey, elevenLabsKey, openAiKey, selectedVoiceId);
   };
 
   const handleClaudeKeyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -179,6 +194,10 @@ export default function ApiSettings({
 
   const handleElevenLabsKeyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setElevenLabsKey(e.target.value.trim());
+  };
+  
+  const handleOpenAiKeyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setOpenAiKey(e.target.value.trim());
   };
 
   const handleVoiceChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -250,39 +269,56 @@ export default function ApiSettings({
                     <FaExclamationTriangle className="mr-1" /> Invalid
                   </span>
                 )}
-                <button
+                <button 
                   onClick={testClaudeConnection}
                   disabled={testingClaudeApi || !claudeKey}
-                  className={`text-xs px-2 py-1 rounded ${
+                  className={`text-xs py-1 px-2 rounded ${
                     testingClaudeApi || !claudeKey
                       ? 'bg-gray-700 text-gray-400 cursor-not-allowed'
-                      : 'bg-blue-700 hover:bg-blue-600 text-white'
+                      : 'bg-indigo-600 hover:bg-indigo-700 text-white'
                   }`}
                 >
-                  {testingClaudeApi ? 'Testing...' : 'Test Connection'}
+                  {testingClaudeApi ? 'Testing...' : 'Test'}
                 </button>
               </div>
             </label>
-            <input
-              id="claude-key"
-              type="password"
-              value={claudeKey}
-              onChange={handleClaudeKeyChange}
-              placeholder="Enter your Claude API key (starts with sk- or uses underscores)"
-              className="w-full p-2.5 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 focus:outline-none"
-            />
-            <p className="text-xs text-gray-500 flex items-start">
-              <FaInfoCircle className="mt-0.5 mr-1 flex-shrink-0" />
-              Required for chat functionality. Get one from{' '}
-              <a 
-                href="https://console.anthropic.com/account/keys"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-400 hover:underline ml-1"
-              >
-                Anthropic Console
-              </a>
-            </p>
+            <div className="relative">
+              <input
+                id="claude-key"
+                type="password"
+                value={claudeKey}
+                onChange={handleClaudeKeyChange}
+                placeholder="sk-..."
+                className="w-full p-2.5 rounded-lg bg-gray-800 text-white border border-gray-700 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                required
+              />
+              <div className="mt-1 text-xs text-gray-400 flex items-start">
+                <FaInfoCircle className="mt-0.5 mr-1 flex-shrink-0" />
+                <span>Claude API keys start with "sk-" or include underscores</span>
+              </div>
+            </div>
+          </div>
+          
+          <div className="space-y-2">
+            <label htmlFor="openai-key" className="block text-sm font-medium text-gray-300 flex items-center">
+              OpenAI API Key <span className="text-red-500 ml-1">*</span>
+              <div className="text-xs text-gray-400 ml-2">(for Whisper transcription)</div>
+            </label>
+            <div className="relative">
+              <input
+                id="openai-key"
+                type="password"
+                value={openAiKey}
+                onChange={handleOpenAiKeyChange}
+                placeholder="sk-..."
+                className="w-full p-2.5 rounded-lg bg-gray-800 text-white border border-gray-700 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                required
+              />
+              <div className="mt-1 text-xs text-gray-400 flex items-start">
+                <FaInfoCircle className="mt-0.5 mr-1 flex-shrink-0" />
+                <span>Required for speech transcription with Whisper</span>
+              </div>
+            </div>
           </div>
           
           <div className="space-y-2">
@@ -294,72 +330,52 @@ export default function ApiSettings({
               type="password"
               value={elevenLabsKey}
               onChange={handleElevenLabsKeyChange}
-              placeholder="Enter your ElevenLabs API key"
-              className="w-full p-2.5 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 focus:outline-none"
+              placeholder="Optional: For text-to-speech"
+              className="w-full p-2.5 rounded-lg bg-gray-800 text-white border border-gray-700 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
             />
-            <p className="text-xs text-gray-500 flex items-start">
-              <FaInfoCircle className="mt-0.5 mr-1 flex-shrink-0" />
-              Required for text-to-speech. Get one from{' '}
-              <a 
-                href="https://elevenlabs.io/app/api-key"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-400 hover:underline ml-1"
-              >
-                ElevenLabs Dashboard
-              </a>
-            </p>
           </div>
           
           {elevenLabsKey && (
             <div className="space-y-2">
               <label htmlFor="voice-select" className="block text-sm font-medium text-gray-300">
-                Voice
+                Voice Selection
               </label>
               <select
                 id="voice-select"
-                value={selectedVoiceId}
+                value={selectedVoiceId || ''}
                 onChange={handleVoiceChange}
+                className="w-full p-2.5 rounded-lg bg-gray-800 text-white border border-gray-700 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                 disabled={loadingVoices || voices.length === 0}
-                className="w-full p-2.5 rounded-lg bg-gray-800 border border-gray-700 text-white focus:border-primary-500 focus:ring-1 focus:ring-primary-500 focus:outline-none"
               >
-                {loadingVoices ? (
-                  <option>Loading voices...</option>
-                ) : voices.length === 0 ? (
-                  <option>No voices available</option>
-                ) : (
-                  voices.map(voice => (
-                    <option key={voice.voice_id} value={voice.voice_id}>
-                      {voice.name}
-                    </option>
-                  ))
+                {voices.length === 0 && !loadingVoices && (
+                  <option value="">No voices available</option>
                 )}
+                {loadingVoices && (
+                  <option value="">Loading voices...</option>
+                )}
+                {voices.map(voice => (
+                  <option key={voice.voice_id} value={voice.voice_id}>
+                    {voice.name}
+                  </option>
+                ))}
               </select>
-              <p className="text-xs text-gray-500">
-                Select a voice for text-to-speech
-              </p>
             </div>
           )}
-          
-          <div className="pt-2 flex space-x-3">
-            <button
-              onClick={handleSave}
-              disabled={!claudeKey}
-              className={`flex-1 py-2.5 px-4 rounded-lg transition-all duration-300 ${
-                !claudeKey
-                  ? 'bg-gray-700 text-gray-500 cursor-not-allowed'
-                  : 'bg-primary-600 hover:bg-primary-700 text-white hover-scale'
-              }`}
-            >
-              Save Settings
-            </button>
-            <button
-              onClick={onClose}
-              className="flex-1 py-2.5 px-4 rounded-lg border border-gray-700 hover:bg-gray-800 transition-all duration-300 hover-scale"
-            >
-              Cancel
-            </button>
-          </div>
+        </div>
+        
+        <div className="p-4 border-t border-white/10 flex justify-end gap-3">
+          <button
+            onClick={onClose}
+            className="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-lg transition-colors"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={handleSave}
+            className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-colors"
+          >
+            Save Settings
+          </button>
         </div>
       </motion.div>
     </div>

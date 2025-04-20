@@ -1,10 +1,10 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { motion, AnimatePresence, Variant } from 'framer-motion';
 import { 
   FaMicrophone, 
-  FaMicrophoneSlash, 
+  FaMicrophoneSlash,
   FaPlay, 
   FaPause,
   FaVolumeUp, 
@@ -15,9 +15,11 @@ import {
   FaKeyboard,
   FaVolumeOff,
   FaStop,
-  FaComments
+  FaComments,
+  FaExclamationTriangle,
+  FaInfoCircle
 } from 'react-icons/fa';
-import { MdSettings } from 'react-icons/md';
+import { MdSettings, MdTranslate, MdVoiceChat, MdMic, MdInfo, MdInfoOutline, MdCheck, MdClose, MdStop } from 'react-icons/md';
 import { BiTransfer } from 'react-icons/bi';
 import ApiSettings from './ApiSettings';
 import { setupAudioRecording } from '../api/whisper';

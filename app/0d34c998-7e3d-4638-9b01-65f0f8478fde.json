@@ -1,0 +1,1 @@
+{"text": " Curious George is a good monkey.", "segments": [{"id": 0, "seek": 0, "start": 0.0, "end": 3.0, "text": " Curious George is a good monkey.", "tokens": [50364, 7907, 851, 7136, 307, 257, 665, 17847, 13, 50514], "temperature": 0.0, "avg_logprob": -0.7300255515358665, "compression_ratio": 0.8, "no_speech_prob": 0.01149292103946209}], "language": "en"}
